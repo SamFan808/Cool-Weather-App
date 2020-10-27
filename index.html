@@ -7,7 +7,7 @@
     <title>Weather App</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="Assets/styles.css">
 </head>
 
@@ -20,20 +20,19 @@
             <nav class="col-md-3">
                 <nav class="search">
                     <h2>Search Thingie</h2>
-                    <nav class="input-group mb-3">
+                    <nav class="input-group input-group-sm mb-3">
                         <input type="text" class="form-control" placeholder="City Name"
                             aria-label="Recipient's username" aria-describedby="button-addon2">
                         <nav class="input-group-append">
                             <button class="btn btn-primary" type="button" id="button-addon2">
-                                Sarch<span class="fas fa-search"></span>
+                                Sarch <span class="fas fa-search"></span>
                             </button>
-
                         </nav>
                     </nav>
                 </nav>
                 <ul class="list-group">
-                    <li class="list-group-item" data-recent="recent1">city wok</li>
-                    <li class="list-group-item" data-recent="recent2">Denver</li>
+                    <li class="list-group-item py-2" data-recent="recent1">city wok</li>
+                    <li class="list-group-item py-2" data-recent="recent2">Denver</li>
                 </ul>
             </nav>
             <section class="col-md-8" id=cityblock>
@@ -42,14 +41,48 @@
                 <section class="wind">wind</section>
                 <section class="uv">uv</section>
             </section>
-            <section class="h3">5-Day Forecast:</section>
-            <section class="card" style="width: 15rem;">
-                <section class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                        content.</p>
+
+            <section class="col-md-12 offset-md-3">
+                <section class="h3">5-Day Forecast:</section>
+            </section>
+
+            <section class="offset-md-3">
+                <section class="card bg-primary" style="width: 12rem" data-day="day1">
+                    <section class="card-body">
+                        <h5 class="card-title" data-date="date1">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's content.</p>
+                    </section>
                 </section>
-            </section>  
+            </section>
+            <section class="card bg-primary" style="width: 12rem" data-day="day2">
+                <section class="card-body">
+                    <h5 class="card-title" data-date="date2">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                        the card's content.</p>
+                </section>
+            </section>
+            <section class="card bg-primary" style="width: 12rem" data-day="day3">
+                <section class="card-body">
+                    <h5 class="card-title" data-date="date3">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                        the card's content.</p>
+                </section>
+            </section>
+            <section class="card bg-primary" style="width: 12rem" data-day="day3">
+                <section class="card-body">
+                    <h5 class="card-title" data-date="date4">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                        the card's content.</p>
+                </section>
+            </section>
+            <section class="card bg-primary" style="width: 12rem" data-day="day3">
+                <section class="card-body">
+                    <h5 class="card-title" data-date="date5">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                        the card's content.</p>
+                </section>
+            </section>
         </main>
     </main>
 

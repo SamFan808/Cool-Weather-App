@@ -5,13 +5,6 @@ header {
   padding: 20px;
 }
 
-nav .container {
-  border: solid;
-  border-radius: 15px;
-  color: red;
-  font-size: larger;
-}
-
 nav .search {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -21,4 +14,18 @@ nav .search {
   border-width: thin;
   border-color: rgb(219, 219, 219);
   border-radius: 5px;
+  margin: 15px;
+}
+
+h3 {
+  text-align: center;
+}
+
+.card {
+  margin-left: 15px;
+  color: white;
+}
+
+h5 {
+  font-weight: bold;
 }
