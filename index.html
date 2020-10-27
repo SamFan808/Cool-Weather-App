@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="Assets/styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Weather Dashboard</h1>
+    </header>
+    <main class="container-fluid">
+        <main class="row">
+            <nav class="col-md-3">
+                <nav class="search">
+                    <h2>Search Thingie</h2>
+                    <nav class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="City Name"
+                            aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <nav class="input-group-append">
+                            <button class="btn btn-primary" type="button" id="button-addon2">
+                                Sarch<span class="fas fa-search"></span>
+                            </button>
+
+                        </nav>
+                    </nav>
+                </nav>
+                <ul class="list-group">
+                    <li class="list-group-item" data-recent="recent1">city wok</li>
+                    <li class="list-group-item" data-recent="recent2">Denver</li>
+                </ul>
+            </nav>
+            <section class="col-md">
+                <section class="city">Placeholder for City</section>
+                <section class="temperature">temp</section>
+                <section class="wind">wind</section>
+                <section class="uv">uv</section>
+                <section class="h3">5-Day Forecast:</section>
+                <section class="col-md-2" data-day="day1"></section>
+                <section class="col-md-2" data-day="day2"></section>
+                <section class="col-md-2" data-day="day3"></section>
+                <section class="col-md-2" data-day="day4"></section>
+                <section class="col-md-2" data-day="day5"></section>
+            </section>
+        </main>
+    </main>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
+        integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
+        crossorigin="anonymous"></script>
+    <script src="Assets/script.js"></script>
+</body>
+
+</html>

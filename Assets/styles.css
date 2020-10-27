@@ -1,0 +1,17 @@
+header {
+  color: red;
+  text-align: center;
+  background-color: rgb(16, 22, 71);
+  padding: 20px;
+}
+
+nav .container {
+  border: solid;
+  border-radius: 15px;
+  color: red;
+  font-size: larger;
+}
+
+nav .search {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
