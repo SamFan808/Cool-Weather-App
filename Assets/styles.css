@@ -15,3 +15,10 @@ nav .container {
 nav .search {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+
+#cityblock {
+  border: solid;
+  border-width: thin;
+  border-color: rgb(219, 219, 219);
+  border-radius: 5px;
+}
