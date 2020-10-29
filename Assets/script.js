@@ -26,31 +26,54 @@
 
 // getApi(requestUrl);
 var cardTarget = document.getElementById("cardstart");
+var boxTarget = document.querySelector(".col-md-2");
+var inputTarget = document.querySelector(".list-group");
 var dayArray = ["day1", "day2", "day3", "day4", "day5"];
+var cityRecents =[];
 
+// this function should build a list based on recent city searches
+function recents () {
+  var liN1 = document.createElement("li");
+  inputTarget.appendChild(liN1).className = "list-group-item py-2";
+}
+// this function builds the current weather card
+function currentWeather () {
+  var cityBlock = document.createElement("section"); 
+  var city = document.createElement("section");
+  var temp = document.createElement("section");
+  var wind = document.createElement("section");
+  var uv = document.createElement("section");
+  boxTarget.after(cityBlock);
+  cityBlock.className = "col-md-8";
+  cityBlock.id = "cityblock";
+  cityBlock.appendChild(city).className = "city";
+  cityBlock.appendChild(temp).className = "temperature";
+  cityBlock.appendChild(wind).className = "windspeed";
+  cityBlock.appendChild(uv).className = "uvindex";
+  city.textContent = "City Placeholder"
+  temp.textContent = "temperature";
+  wind.textContent = "windspeed";
+  uv.textContent = "uv placeholder";
+}
 // https://stackoverflow.com/a/15643868/14244725 - uhh, put the variables inside the loop/function
-function dayCard () {
-  var dayS1 = document.createElement("section");
-  var dayS2 = document.createElement("section");
-  var dayH5 = document.createElement("h5");
-  var dayP1 = document.createElement("p");
-  cardTarget.appendChild(dayS1);
-  dayS1.className ="card bg-primary";
-  dayS1.style = "width:12rem";
-  dayS1.dataset.day = "day"+[i+1];
-  dayS1.appendChild(dayS2);
-  dayS2.className ="card-body";
-  dayS2.appendChild(dayH5);
-  dayH5.className = "card-title";
-  dayS2.appendChild(dayP1);
-  dayP1.className = "card-text";
- }
-
 // creates the 5-day card html ==============================
-function fiveDay () {
-    for (i = 0; i < dayArray.length; i++) {
-    dayCard();
-    }
-  };
-
-fiveDay();
+function dayCard () {
+  var dayTitle = document.querySelector("#daytitle");
+  dayTitle.textContent = "5-Day Forecast:";
+  for (i = 0; i < dayArray.length; i++) {
+    var dayS1 = document.createElement("section");
+    var dayS2 = document.createElement("section");
+    var dayH5 = document.createElement("h5");
+    var dayP1 = document.createElement("p");
+    cardTarget.after(dayS1);
+    dayS1.className ="card bg-primary";
+    dayS1.style = "width:10rem";
+    dayS1.dataset.day = "day"+[i+1];
+    dayS1.appendChild(dayS2).className ="card-body";
+    dayS2.appendChild(dayH5).className = "card-title";
+    dayS2.appendChild(dayP1).className = "card-text";
+  }
+}
+recents();
+currentWeather();
+dayCard();
