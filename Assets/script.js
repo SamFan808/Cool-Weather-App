@@ -24,30 +24,32 @@ var cityRecents =[];
 var fetchButton = document.querySelector(".btn");
 var cityB1 = document.getElementsByClassName("city");
 
-function getApi() {
+fetchButton.addEventListener('click', function(event) {
+  event.preventDefault(); {
   var cityInput = document.querySelector("input");
   var cityText = cityInput.value;
   var requestUrl = "https://api.openweathermap.org/data/2.5/weather?q="+ cityText +"&appid=0d2d646f1fc53c15f97082e153457db8&units=imperial";
-  fetch(requestUrl)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) { 
-      cityB1.textContent = data.name;
-      console.log(data);
-      console.log(cityInput);
-      console.log(cityText);
-      console.log(requestUrl);
-      console.log(data.main.temp);
-    });
-}
-console.log(data);
-fetchButton.addEventListener('click', function(event) {
-  event.preventDefault();
-  getApi();
+  if (cityText === "") {
+    return;
+  } else {
+    // clear the currentWeather and the daycards
+    fetch(requestUrl) 
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) { 
+        cityB1.textContent = data.name;
+        console.log(data);
+        console.log(cityInput);
+        console.log(cityText);
+        console.log(requestUrl);
+        console.log(data.main.temp);
+      })
+    }
+  }
+  currentWeather();
+  dayCard();
 });
-
-
 // this function should build a list based on recent city searches
 function recents () {
   var liN1 = document.createElement("li");
@@ -55,11 +57,11 @@ function recents () {
 }
 // this function builds the current weather card
 function currentWeather () {
-  var cityBlock = document.createElement("section"); 
-  var city = document.createElement("section");
-  var temp = document.createElement("section");
-  var wind = document.createElement("section");
-  var uv = document.createElement("section");
+  var cityBlock = document.createElement("article"); 
+  var city = document.createElement("article");
+  var temp = document.createElement("article");
+  var wind = document.createElement("article");
+  var uv = document.createElement("article");
   boxTarget.after(cityBlock);
   cityBlock.className = "col-md-8";
   cityBlock.id = "cityblock";
@@ -67,7 +69,7 @@ function currentWeather () {
   cityBlock.appendChild(temp).className = "temperature";
   cityBlock.appendChild(wind).className = "windspeed";
   cityBlock.appendChild(uv).className = "uvindex";
-  city.textContent = data.name;
+  city.textContent = "City";
   temp.textContent = "temperature";
   wind.textContent = "windspeed";
   uv.textContent = "uv placeholder";
@@ -78,8 +80,8 @@ function dayCard () {
   var dayTitle = document.querySelector("#daytitle");
   dayTitle.textContent = "5-Day Forecast:";
   for (i = 0; i < dayArray.length; i++) {
-    var dayS1 = document.createElement("section");
-    var dayS2 = document.createElement("section");
+    var dayS1 = document.createElement("article");
+    var dayS2 = document.createElement("article");
     var dayH5 = document.createElement("h5");
     var dayP1 = document.createElement("p");
     cardTarget.after(dayS1);
@@ -91,6 +93,5 @@ function dayCard () {
     dayS2.appendChild(dayP1).className = "card-text";
   }
 }
+
 recents();
-currentWeather();
-dayCard();
