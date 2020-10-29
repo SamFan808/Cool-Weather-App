@@ -16,20 +16,37 @@
 
 // var responseText = document.getElementById('response-text');
 
-// function getApi(requestUrl) {
-//   fetch(requestUrl)
-//     .then(function (response) {})
-//     .then(function (data) {
-//       console.log(data);
-//     });
-// }
-
-// getApi(requestUrl);
 var cardTarget = document.getElementById("cardstart");
 var boxTarget = document.querySelector(".col-md-2");
 var inputTarget = document.querySelector(".list-group");
 var dayArray = ["day1", "day2", "day3", "day4", "day5"];
 var cityRecents =[];
+var fetchButton = document.querySelector(".btn");
+var cityB1 = document.getElementsByClassName("city");
+
+function getApi() {
+  var cityInput = document.querySelector("input");
+  var cityText = cityInput.value;
+  var requestUrl = "https://api.openweathermap.org/data/2.5/weather?q="+ cityText +"&appid=0d2d646f1fc53c15f97082e153457db8&units=imperial";
+  fetch(requestUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) { 
+      cityB1.textContent = data.name;
+      console.log(data);
+      console.log(cityInput);
+      console.log(cityText);
+      console.log(requestUrl);
+      console.log(data.main.temp);
+    });
+}
+console.log(data);
+fetchButton.addEventListener('click', function(event) {
+  event.preventDefault();
+  getApi();
+});
+
 
 // this function should build a list based on recent city searches
 function recents () {
@@ -50,7 +67,7 @@ function currentWeather () {
   cityBlock.appendChild(temp).className = "temperature";
   cityBlock.appendChild(wind).className = "windspeed";
   cityBlock.appendChild(uv).className = "uvindex";
-  city.textContent = "City Placeholder"
+  city.textContent = data.name;
   temp.textContent = "temperature";
   wind.textContent = "windspeed";
   uv.textContent = "uv placeholder";
