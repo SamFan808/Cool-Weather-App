@@ -1,22 +1,9 @@
-// Weather dashboard
-// search field - fetch query
-// list of recent city searches below, should be active links that can be clicked, taking to the search query results for that city
-// City name and date with current weather icon (cloud, sun, etc...)
-// Temp, humidity, wind speed, UV index with a color icon background indicating scale of favorable, moderate, severe
-// 5-day forecast for the city w/weather condition icon, temp and humidity
-// api.openweathermap.org/data/2.5/weather?q={city name},{state code},{country code}&appid={API key}
+// to do - still can't get the 5-day to populate, it's populating backwards (after) array to retrieve 5-day data needs to compare a certain time for validation
+// list items need to be populated
+// how to limit size of cityRecents array to top 5
+//some styling
 
-// target the search input
-// fetch data for 5-day forecast, return into 5 cards and .city
-// create recent items list, with a href links going back to the previous search item for each item
-// localStorage will store recent city, state, country names in an index
-// 
-
-// var requestUrl = 'api.openweathermap.org/data/2.5/weather?q={city name},{state code}&appid={API key}';
-
-// var responseText = document.getElementById('response-text');
-
-var cardTarget = document.getElementById("cardstart");
+var cardTarget = document.querySelector("#cardstart");
 var boxTarget = document.querySelector(".col-md-2");
 var inputTarget = document.querySelector(".list-group");
 // var dayArray = ["day1", "day2", "day3", "day4", "day5"];
@@ -24,6 +11,8 @@ var cityRecents =[];
 var fetchButton = document.querySelector(".btn");
 var cityB1 = document.getElementsByClassName("city");
 var timeNow = moment();
+init();
+
 
 function getData () {
   // clear the currentWeather and the daycards
@@ -84,10 +73,11 @@ function getData () {
             var dayTitle = document.querySelector("#daytitle");
             dayTitle.textContent = "5-Day Forecast:";
 
-            for (i = 0; i < 5; i++) {
+            for (let i = 0; i < 5; i++) {
               var dayS1 = document.createElement("section");
               var dayS2 = document.createElement("section");
               var dayH5 = document.createElement("h5");
+              var dayA1 = document.createElement("img");
               var dayP1 = document.createElement("p");
               var dayP2 = document.createElement("p");
               cardTarget.after(dayS1);
@@ -96,37 +86,55 @@ function getData () {
               dayS1.dataset.day = "day"+[i+1];
               dayS1.appendChild(dayS2).className ="card-body";
               dayS2.appendChild(dayH5).className = "card-title";
+              dayS2.appendChild(dayA1).className = "icon";
               dayS2.appendChild(dayP1).className = "card-text";
               dayS2.appendChild(dayP2).className = "card-text";
 
-              // modulo reference https://stackoverflow.com/questions/2821006/find-if-variable-is-divisible-by-2
-              
-              
-            }
-            for (j = 0; j < dataFive.list.length ; j++) {
-                if (j % 8 === 0) { 
-                console.log(timeNow.add(1,'days').format("MM/DD/YY"));
-                console.log(dataFive.list[j].main.temp + "°F");
-                console.log(dataFive.list[j].main.humidity + "%");
-                console.log(dataFive.list[j].dt_txt);
-                console.log(j);
-                }
-              }
-            var dayPlus1 = dataFive.list[4].main;
-            var dayPlus2 = dataFive.list[12].main;
-            var dayPlus3 = dataFive.list[20].main;
-            var dayPlus4 = dataFive.list[28].main;
-            var dayPlus5 = dataFive.list[36].main;
+            };
 
-          // console.log(dataFive.list[4].dt_txt);
-          // console.log(dataFive.list[12].dt_txt);
-          // console.log(dataFive.list[20].dt_txt);
-          // console.log(dataFive.list[28].dt_txt);
-          // console.log(dataFive.list[36].dt_txt);
+            function getFive (r) {
+              for (let j = 0; j < dataFive.list.length ; j++) {
+              if (j % 8 === 0) { 
+                dayH5.textContent = timeNow.add(1,'days').format("MM/DD/YY");
+                dayA1.src = "http://openweathermap.org/img/wn/" + dataFive.list[r].weather[0].icon + "@2x.png"
+                dayP1.textContent = (Math.round(dataFive.list[r].main.temp)) + "°F";
+                dayP2.textContent = dataFive.list[r].main.humidity + "%";
+                console.log(dataFive.list[r].dt_txt)
+              }
+             };
+            }
+            getFive(11);
+
           });
-      })
+            
+        cityRecents.push(cityText);
+          if (cityRecents.length > 10) {
+              // limit array length to 10 items
+            console.log("yikes!");
+
+          } else {
+              cityInput.value = "";
+              cityStore();
+            }
+      });
+  } 
+}
+
+function cityStore () {
+  localStorage.setItem('recentCities', JSON.stringify(cityRecents));
+}
+function init() {
+  var storedCities = JSON.parse(localStorage.getItem("recentCities"));
+    if (storedCities !== null) {
+    cityRecents = storedCities;
   }
 }
+
+function error () {
+  // some function to prevents errors from mistyped city names
+
+}
+
 
 // this function should build a list based on recent city searches
 function recents () {
@@ -137,3 +145,19 @@ function recents () {
 fetchButton.addEventListener('click', getData);
 
 recents();
+
+// modulo reference https://stackoverflow.com/questions/2821006/find-if-variable-is-divisible-by-2
+            // for (let j = 0; j < dataFive.list.length ; j++) {
+            //   if (j % 8 === 0) { 
+            //   dayH5.textContent = timeNow.add(1,'days').format("MM/DD/YY");
+            //   console.log((Math.round(dataFive.list[j].main.temp)) + "°F");
+            //   console.log(dataFive.list[j].main.humidity + "%");
+            //   console.log(dataFive.list[j].dt_txt);
+            //   console.log(j);
+            //   }
+            // }
+          // console.log(dataFive.list[4].dt_txt);
+          // console.log(dataFive.list[12].dt_txt);
+          // console.log(dataFive.list[20].dt_txt);
+          // console.log(dataFive.list[28].dt_txt);
+          // console.log(dataFive.list[36].dt_txt);
