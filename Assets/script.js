@@ -1,12 +1,14 @@
 // to do - still can't get the 5-day to populate, it's populating backwards (after) array to retrieve 5-day data needs to compare a certain time for validation
 // list items need to be populated
 // how to limit size of cityRecents array to top 5
-//some styling
+// also need the weather icon in the daily forecastgit
+// need to account for errors in user input search field
+// some styling
 
 var cardTarget = document.querySelector("#cardstart");
 var boxTarget = document.querySelector(".col-md-2");
 var inputTarget = document.querySelector(".list-group");
-// var dayArray = ["day1", "day2", "day3", "day4", "day5"];
+var dayArray = ["day1", "day2", "day3", "day4", "day5"];
 var cityRecents =[];
 var fetchButton = document.querySelector(".btn");
 var cityB1 = document.getElementsByClassName("city");
@@ -34,6 +36,7 @@ function getData () {
         // this builds the current weather card
         var cityBlock = document.createElement("section");
         var city = document.createElement("section");
+        var dayA2 = document.createElement("img");
         var temp = document.createElement("section");
         var wind = document.createElement("section");
         var uv = document.createElement("section");
@@ -41,11 +44,12 @@ function getData () {
         cityBlock.className = "col-md-8";
         cityBlock.id = "cityblock";
         cityBlock.appendChild(city).className = "city";
+        cityBlock.appendChild(dayA2).className = "icon";
         cityBlock.appendChild(temp).className = "temperature";
         cityBlock.appendChild(wind).className = "windspeed";
         cityBlock.appendChild(uv).className = "uvindex";
         city.textContent = data.name + " (" + timeNow.format("MM/DD/YY") + ")";
-        // spanB1.textContent = "(" + timeNow.format("dddd, MMMM Do") + ")";
+        dayA2.src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
         temp.textContent = "Temperature: " + Math.round(data.main.temp) + "°F";
         wind.textContent = "Windspeed: " + data.wind.speed + " MPH";
         // UV index fetch request ================================
@@ -80,53 +84,67 @@ function getData () {
               var dayA1 = document.createElement("img");
               var dayP1 = document.createElement("p");
               var dayP2 = document.createElement("p");
-              cardTarget.after(dayS1);
+              var dayP3 = document.createElement("p");
+              cardTarget.appendChild(dayS1);
               dayS1.className ="card bg-primary";
               dayS1.style = "width:10rem";
               dayS1.dataset.day = "day"+[i+1];
               dayS1.appendChild(dayS2).className ="card-body";
               dayS2.appendChild(dayH5).className = "card-title";
-              dayS2.appendChild(dayA1).className = "icon";
-              dayS2.appendChild(dayP1).className = "card-text";
-              dayS2.appendChild(dayP2).className = "card-text";
-
+              dayS2.appendChild(dayA1).className = "icon"+ [i];
+              dayS2.appendChild(dayP1).className = "temp" + [i];
+              dayS2.appendChild(dayP2).className = "hum" + [i];
+              dayS2.appendChild(dayP3).className = "dtTxt" + [i];
+              dayH5.textContent = timeNow.add(1,'days').format("MM/DD/YY");
+              function forecast () {
+              for (let j = 0; j < dataFive.list.length ; j++) {
+                  if (j % 8 === 0) { 
+                  var fiveIcon = "http://openweathermap.org/img/wn/" + dataFive.list[j].weather[0].icon + "@2x.png",
+                  fiveTemp = dataFive.list[j].main.temp + "°F",
+                  fiveHumid = dataFive.list[j].main.humidity + "%",
+                  fiveDt = dataFive.list[j].dt_txt,
+                  dayIcon = document.getElementsByClassName("icon"+[i]),
+                  dayTemp = document.getElementsByClassName("temp"+[i]),
+                  dayHumid = document.querySelectorAll("p.hum"+[i]),
+                  dayDt = document.querySelectorAll("p.dtTxt"+[i]);
+                  // dayIcon[j].src = fiveIcon;
+                  dayTemp.textContent = fiveTemp;
+                  // dayHumid.textContent = fiveHumid;
+                  // dayDt.textContent = fiveDt;
+                  console.log(dayTemp);
+                  console.log(fiveTemp);
+                  }
+                };
+              }
+              forecast();
+              recents();
+              
             };
 
-            function getFive (r) {
-              for (let j = 0; j < dataFive.list.length ; j++) {
-              if (j % 8 === 0) { 
-                dayH5.textContent = timeNow.add(1,'days').format("MM/DD/YY");
-                dayA1.src = "http://openweathermap.org/img/wn/" + dataFive.list[r].weather[0].icon + "@2x.png"
-                dayP1.textContent = (Math.round(dataFive.list[r].main.temp)) + "°F";
-                dayP2.textContent = dataFive.list[r].main.humidity + "%";
-                console.log(dataFive.list[r].dt_txt)
-              }
-             };
-            }
-            getFive(11);
-
-          });
             
+          });
         cityRecents.push(cityText);
-          if (cityRecents.length > 10) {
-              // limit array length to 10 items
-            console.log("yikes!");
-
-          } else {
-              cityInput.value = "";
-              cityStore();
-            }
+          if (cityRecents.length > 7) {
+          cityRecents.shift();
+          cityRecents.length = Math.min(cityRecents.length, 7);
+          cityInput.value = "";
+          cityStore();
+          }
+          
       });
-  } 
+  }
 }
+  
 
 function cityStore () {
   localStorage.setItem('recentCities', JSON.stringify(cityRecents));
 }
+
 function init() {
   var storedCities = JSON.parse(localStorage.getItem("recentCities"));
     if (storedCities !== null) {
     cityRecents = storedCities;
+    recents();
   }
 }
 
@@ -135,16 +153,31 @@ function error () {
 
 }
 
-
 // this function should build a list based on recent city searches
 function recents () {
-  var liN1 = document.createElement("li");
-  inputTarget.appendChild(liN1).className = "list-group-item py-2";
+  $('li').remove();
+  for (var i = 0; i < cityRecents.length; i++) {
+    var liN1 = document.createElement("li");
+    inputTarget.appendChild(liN1).className = "list-group-item py-2";
+    liN1.textContent = cityRecents[i];
+  }
 }
+var clickList = document.querySelectorAll("li");
+
+function listRecent () {
+  if (clickList.length > 0) {
+    for (var i = 0; i < clickList.length; i++) {
+      clickList[i].addEventListener('click', function() {
+      console.log(clickList[0].textContent);
+      });
+    }
+  }
+}
+listRecent();
+
+// event listeners ===============================
 
 fetchButton.addEventListener('click', getData);
-
-recents();
 
 // modulo reference https://stackoverflow.com/questions/2821006/find-if-variable-is-divisible-by-2
             // for (let j = 0; j < dataFive.list.length ; j++) {
