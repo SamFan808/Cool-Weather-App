@@ -91,38 +91,49 @@ function getData () {
               dayS1.dataset.day = "day"+[i+1];
               dayS1.appendChild(dayS2).className ="card-body";
               dayS2.appendChild(dayH5).className = "card-title";
-              dayS2.appendChild(dayA1).className = "icon"+ [i];
-              dayS2.appendChild(dayP1).className = "temp" + [i];
-              dayS2.appendChild(dayP2).className = "hum" + [i];
-              dayS2.appendChild(dayP3).className = "dtTxt" + [i];
+              dayS2.appendChild(dayA1).id = "icon"+ [i*8];
+              dayS2.appendChild(dayP1).id = "temp" + [i*8];
+              dayS2.appendChild(dayP2).id = "hum" + [i*8];
+              dayS2.appendChild(dayP3).id = "dtTxt" + [i*8];
+              console.log(i*8)
+
               dayH5.textContent = timeNow.add(1,'days').format("MM/DD/YY");
-              function forecast () {
+              // console.log(dayP1);
+              // console.log(fiveTemp);
+              // console.log(i);
+            }
               for (let j = 0; j < dataFive.list.length ; j++) {
-                  if (j % 8 === 0) { 
+                if (j % 8 === 0) {
                   var fiveIcon = "http://openweathermap.org/img/wn/" + dataFive.list[j].weather[0].icon + "@2x.png",
                   fiveTemp = dataFive.list[j].main.temp + "°F",
                   fiveHumid = dataFive.list[j].main.humidity + "%",
-                  fiveDt = dataFive.list[j].dt_txt,
-                  dayIcon = document.getElementsByClassName("icon"+[i]),
-                  dayTemp = document.getElementsByClassName("temp"+[i]),
-                  dayHumid = document.querySelectorAll("p.hum"+[i]),
-                  dayDt = document.querySelectorAll("p.dtTxt"+[i]);
-                  // dayIcon[j].src = fiveIcon;
-                  dayTemp.textContent = fiveTemp;
-                  // dayHumid.textContent = fiveHumid;
-                  // dayDt.textContent = fiveDt;
-                  console.log(dayTemp);
-                  console.log(fiveTemp);
-                  }
-                };
-              }
-              forecast();
-              recents();
-              
-            };
+                  fiveDt = dataFive.list[j].dt_txt;
+                  // console.log(fiveTemp);
+                  // console.log(fiveHumid);
+                  // console.log(fiveDt);
 
+                  var dayIcon = document.getElementsByClassName("img#icon"+[j]),
+                  dayTemp = document.querySelector("p#temp"+[j]);
+                  dayHumid = document.querySelector("p#hum"+[j]),
+                  dayDt = document.querySelector("p#dtTxt"+[j]);
+                  // dayIcon.setAttribute.src = fiveIcon;
+                  dayTemp.textContent = fiveTemp;
+                  dayHumid.textContent = fiveHumid;
+                  dayDt.textContent = fiveDt;
+                  console.log(fiveTemp);
+                  console.log(fiveDt);
+                  console.log(j);
+                }
+                
+              }
+             
+           
             
+              
           });
+
+         recents();   
+      });
         cityRecents.push(cityText);
           if (cityRecents.length > 7) {
           cityRecents.shift();
@@ -131,9 +142,9 @@ function getData () {
           cityStore();
           }
           
-      });
-  }
-}
+      };
+}  
+
   
 
 function cityStore () {
