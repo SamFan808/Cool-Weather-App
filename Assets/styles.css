@@ -2,7 +2,13 @@ header {
   color: red;
   text-align: center;
   background-color: rgb(16, 22, 71);
-  padding: 20px;
+  padding: 10px;
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 15px;
 }
 
 nav .search {
@@ -15,9 +21,10 @@ nav .search {
   border-color: rgb(219, 219, 219);
   border-radius: 5px;
   margin: 15px;
+  line-height: 250%;
 }
 
-h3 {
+.uvButt h3 {
   text-align: center;
 }
 
@@ -36,4 +43,8 @@ article .row {
 
 .card {
   display: inline-block;
+}
+
+p {
+  line-height: 50%;
 }
