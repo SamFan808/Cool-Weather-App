@@ -8,4 +8,4 @@ Create a functional weather dashboard for a user to input a city into a search a
 
 Screenshot below:
 
-<img src="./Assets/Screenshot_1_hw_06.png">
+<img src="./Assets/Screen_1_hw_06.png">
